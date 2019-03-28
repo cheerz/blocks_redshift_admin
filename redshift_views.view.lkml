@@ -171,7 +171,7 @@ view: redshift_plan_steps {
   #description: "Steps from the query planner for recent queries to Redshift"
   derived_table: {
     # Insert into PDT because redshift won't allow joining certain system tables/views onto others (presumably because they are located only on the leader node)
-    sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*23)/(60*60*24)) ;; #23h
+#     sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*23)/(60*60*24)) ;; #23h
     sql:
         SELECT
         query, nodeid, parentid,
@@ -198,8 +198,8 @@ view: redshift_plan_steps {
         AND query<=(SELECT max(query) FROM ${redshift_queries.SQL_TABLE_NAME})
     ;;
     #TODO?: Currently not extracting the sequential scan column, but I'm not sure if this is useful to extract. What's more useful as far as I can tell are the fields in the filter (operation argument)
-    distribution: "query"
-    sortkeys: ["query"]
+#     distribution: "query"
+#     sortkeys: ["query"]
   }
   dimension: query {
     sql: ${TABLE}.query;;
