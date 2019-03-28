@@ -349,7 +349,7 @@ view: redshift_queries {
   # Recent is last 24 hours of queries
   # (we only see queries related to our rs user_id)
   derived_table: {
-    sql_trigger_value: SELECT FLOOR(EXTRACT(MINUTE from GETDATE())) ;;
+#     sql_trigger_value: SELECT FLOOR(EXTRACT(MINUTE from GETDATE())) ;;
     # sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*22)/(60*60*24)) ;; #22h
     sql: SELECT
         wlm.query,
@@ -371,8 +371,8 @@ view: redshift_queries {
     ;;
     #STL_QUERY vs SVL_QLOG. STL_QUERY has more characters of query text (4000), but is only retained for "2 to 5 days"
     # STL_WLM_QUERY or SVL_QUERY_QUEUE_INFO? http://docs.aws.amazon.com/redshift/latest/dg/r_SVL_QUERY_QUEUE_INFO.html
-    distribution: "query"
-    sortkeys: ["query"]
+#     distribution: "query"
+#     sortkeys: ["query"]
   }
   dimension: query {
     type: number
